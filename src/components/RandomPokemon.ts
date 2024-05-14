@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import getPokemon from "./getPokemon";
 
 export interface Pokemon{
     cries:{
@@ -25,12 +24,39 @@ export interface Pokemon{
     ],
     weight:number
 }
+interface forPokemonNumber{
+    count:number,
+    next:string,
+    previous:null,
+    results:[]
+}
 
+function GetPokemon(id:number){
+    const [pokemon, setPokemon] = useState<Pokemon>();
 
-async function getNumber(){
-    const response = await fetch("https://pokeapi.co/api/v2/");
-    const data = await response.json();
-    return await data.count
+    useEffect(() =>{
+        async function fetchData(){
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+            const data = await response.json();
+            setPokemon(data);
+        }
+        fetchData();
+    }, [id]);
+    
+    return pokemon;
+}
+
+function GetNumber(){
+    const [data, setData] = useState<forPokemonNumber>()
+    useEffect(()=>{
+        async function fetchData(){
+            const response = await fetch("https://pokeapi.co/api/v2/pokemon");
+            const number:forPokemonNumber = await response.json();
+            setData(number);
+        }
+        fetchData()
+    },[data])
+    return data?.count;
 }
 
 export default function RandomPokemon(){
@@ -39,11 +65,12 @@ export default function RandomPokemon(){
 
     useEffect(()=>{
         async function fetchData(){
-            const numberOfPokemon = await getNumber();
+            const numberOfPokemon = GetNumber() || 1302; // conditional to delete undefined
             setRandom(Math.floor(Math.random() * numberOfPokemon) + 1);
-            setPokemon(getPokemon(random));
+            setPokemon(GetPokemon(random));
+            console.log(pokemon);
         }
         fetchData();
-    },[random])
+    },[random, pokemon])
     return pokemon;
 }
