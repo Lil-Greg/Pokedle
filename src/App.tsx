@@ -13,7 +13,7 @@ function App() {
     <>
 
       <h1 className='game-heading'>Pokedle!</h1>
-      <img src="./assets/twelve_year_old.jpg" className='logo' alt="Ash Ketchum" onClick={handleSubmit} />
+      <img src="./assets/twelveYearOld.jpg" className='logo' alt="Ash Ketchum" onClick={handleSubmit} />
       <form className='play-form' onSubmit={handleSubmit}>
         <button className='play-button'>Play Pokedle</button>
       </form>

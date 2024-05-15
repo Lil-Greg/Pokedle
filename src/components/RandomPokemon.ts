@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export interface Pokemon{
+interface Pokemon{
     cries:{
         latest:string
     },
@@ -24,53 +24,29 @@ export interface Pokemon{
     ],
     weight:number
 }
-interface forPokemonNumber{
-    count:number,
-    next:string,
-    previous:null,
-    results:[]
-}
 
-function GetPokemon(id:number){
-    const [pokemon, setPokemon] = useState<Pokemon>();
+// function GetPokemon(id:number){
+//     async function fetchData(){
+//         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+//         const data = await response.json();
+//         return data
+//     }
 
-    useEffect(() =>{
-        async function fetchData(){
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-            const data = await response.json();
-            setPokemon(data);
-        }
-        fetchData();
-    }, [id]);
     
-    return pokemon;
-}
-
-function GetNumber(){
-    const [data, setData] = useState<forPokemonNumber>()
-    useEffect(()=>{
-        async function fetchData(){
-            const response = await fetch("https://pokeapi.co/api/v2/pokemon");
-            const number:forPokemonNumber = await response.json();
-            setData(number);
-        }
-        fetchData()
-    },[data])
-    return data?.count;
-}
+//     return pokemon;
+// }
 
 export default function RandomPokemon(){
-    const [random, setRandom] = useState<number>(0);
     const [pokemon, setPokemon] = useState<Pokemon>();
 
     useEffect(()=>{
         async function fetchData(){
-            const numberOfPokemon = GetNumber() || 1302; // conditional to delete undefined
-            setRandom(Math.floor(Math.random() * numberOfPokemon) + 1);
-            setPokemon(GetPokemon(random));
+            const random = Math.floor(Math.random() * 1302) + 1;
+            const pokemonRandom: Pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${random}`).then(response => response.json())
+            setPokemon(pokemonRandom);
             console.log(pokemon);
         }
         fetchData();
-    },[random, pokemon])
+    },[pokemon])
     return pokemon;
 }
