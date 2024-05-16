@@ -1,5 +1,6 @@
 import './App.css';
 import { useNavigate } from 'react-router-dom';
+import getImageURL from './utilities/image-util';
 
 function App() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function App() {
     <>
 
       <h1 className='game-heading'>Pokedle!</h1>
-      <img src="./assets/twelveYearOld.jpg" className='logo' alt="Ash Ketchum" onClick={handleSubmit} />
+      <img src={getImageURL('twelveYearOld.jpg')} className='logo' alt="Ash Ketchum" onClick={handleSubmit} />
       <form className='play-form' onSubmit={handleSubmit}>
         <button className='play-button'>Play Pokedle</button>
       </form>

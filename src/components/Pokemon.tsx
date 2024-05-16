@@ -1,26 +1,57 @@
 
-import { useRef, useState } from "react"
-import RandomPokemon from "./RandomPokemon";
+import { useRef, useState } from "react";
+import RandomPokemon, { PokemonCall } from "./RandomPokemon";
 
 export default function Pokemon() {
-    const [guess, setGuess] = useState<number>(6);
+    const [numberOfGuesses, setNumberOfGuesses] = useState<number>(6);
     const [correct, setCorrect] = useState<boolean | null>(null);
-    const randomPokemon = RandomPokemon();
-    const pokemonName = randomPokemon?.name; // Promise still attatched, may have to use an useEffect
-    const guessPokemonRef = useRef<HTMLInputElement | undefined>(undefined);
+    const [error404, setError404] = useState<boolean | null>(null)
+    const pokemon = RandomPokemon();
+    const guessPokemonRef = useRef<HTMLInputElement>();
+    const [guesses, setGuesses] = useState<Array<PokemonCall> | null>(null);
 
+    const compareAnswer = async (pokemonGuess: string | undefined): PokemonCall | null => { // Compare the guesses with the answer
+        try {
+            const fetchData = async () => {
+                const data: PokemonCall = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonGuess}`).then(res => res.json());
+                return data;
+            }
+            const answerCheck = await fetchData();
+            if (!answerCheck) {
+                throw new Error('Failed to Get Pokemon, Invalid Name');
+            }
+            console.log(answerCheck);
+            guesses?.push(answerCheck);
+            setError404(false);
+            return answerCheck;
+        } catch (error) {
+            console.error(`Failed to get Pokemon data: ${error}`);
+            setError404(true);
+            console.log(error404);
+            return null;
+        }
+    };
+    // Something wrong with RandomPokemon() continuous re-renders
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
 
-        const guessPokemon = guessPokemonRef.current?.value;
-        if (guessPokemon === pokemonName) {
-            setCorrect(true)
+        const guessPokemon1 = guessPokemonRef.current?.value;
+        const guessPokemon = guessPokemon1?.toLowerCase();
+        compareAnswer(guessPokemon);
+        if (guessPokemon === pokemon?.name) {
+            setCorrect(true);
         } else {
-            setGuess(guess - (guess - 1));
+            setNumberOfGuesses(numberOfGuesses - (numberOfGuesses - 1));
         }
-        console.log(randomPokemon, guessPokemon);
+        console.log(pokemon, guessPokemon, guesses);
 
     };
+
+    const resetGame = () => {
+        setCorrect(null);
+        setNumberOfGuesses(6);
+        setGuesses(null);
+    }
 
     return (
         <>
@@ -41,8 +72,8 @@ export default function Pokemon() {
                         </tr>
                         <tr className="table-data">
                             <td className="t-data"></td>
-                            <td className="t-data"></td>
-                            <td className="t-data"></td>
+                            <td className="t-data">{pokemon?.types[0].type.name}</td>
+                            <td className="t-data">{pokemon?.types[1]?.type.name}</td>
                             <td className="t-data"></td>
                             <td className="t-data"></td>
                             <td className="t-data"></td>
@@ -50,7 +81,7 @@ export default function Pokemon() {
                     </table>
                 </div>
                 <div className="reset">
-                    <button className="reset-button">Another Pokemon</button>
+                    <button className="reset-button" onClick={resetGame}>Another Pokemon</button>
                 </div>
             </div>
         </>

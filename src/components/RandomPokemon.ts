@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface Pokemon{
+export interface PokemonCall{
     cries:{
         latest:string
     },
@@ -14,7 +14,14 @@ interface Pokemon{
         index:{base_stat:number}
     ],
     types:[
-        index:{
+        index0:{
+            slot:number,
+            type:{
+                name:string,
+                url:string
+            }
+        },
+        index1:{
             slot:number,
             type:{
                 name:string,
@@ -37,14 +44,13 @@ interface Pokemon{
 // }
 
 export default function RandomPokemon(){
-    const [pokemon, setPokemon] = useState<Pokemon>();
+    const [pokemon, setPokemon] = useState<PokemonCall>();
 
     useEffect(()=>{
         async function fetchData(){
-            const random = Math.floor(Math.random() * 1302) + 1;
-            const pokemonRandom: Pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${random}`).then(response => response.json())
+            const random = Math.floor(Math.random() * 1025) + 1;
+            const pokemonRandom: PokemonCall = await fetch(`https://pokeapi.co/api/v2/pokemon/${random}`).then(response => response.json())
             setPokemon(pokemonRandom);
-            console.log(pokemon);
         }
         fetchData();
     },[pokemon])
