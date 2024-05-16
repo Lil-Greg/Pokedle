@@ -56,12 +56,13 @@ export default function Pokemon() {
     return (
         <>
             <div className="container">
+                <h1 className='game-heading'>Pokedle!</h1>
                 <form className="guessPokemonForm" onSubmit={handleSubmit}>
                     <input type="text" name="playerGuess" className="guessPokemon" ref={guessPokemonRef} />
                     <button>Guess</button>
                 </form>
                 <div className="table-div">
-                    <table className="table">
+                    <table className="table" style={{ border: '1px solid white' }}>
                         <tr className="headers">
                             <th className="singular-header">Pokemon Name</th>
                             <th className="singular-header">Type 1</th>
