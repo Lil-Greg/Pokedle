@@ -11,7 +11,12 @@ export interface PokemonCall{
         front_default:string
     },
     stats:[
-        index:{base_stat:number}
+        index0:{base_stat:number},
+        index1:{base_stat:number},
+        index2:{base_stat:number},
+        index3:{base_stat:number},
+        index4:{base_stat:number},
+        index5:{base_stat:number}
     ],
     types:[
         index0:{
@@ -53,6 +58,6 @@ export default function RandomPokemon(){
             setPokemon(pokemonRandom);
         }
         fetchData();
-    },[pokemon])
+    },[])
     return pokemon;
-}
+} // dependencies in useEffects are the effects/states the function waits to change, so it can react

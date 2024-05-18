@@ -12,10 +12,7 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #D22B2B);
 }
 
 @keyframes logo-spin {
@@ -39,4 +36,123 @@
 
 .read-the-docs {
   color: #888;
+}
+h1{
+  text-decoration: underline #D22B2B;
+}
+.correct-btn{
+  background-color: #7c5;
+}
+.reg-btn{
+  background-color: crimson;
+}
+.guesses-left{
+  font-weight: 500;
+  font-size: 2rem;
+}
+.guessPokemonForm{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem;
+}
+table{
+  border: 2px solid #dbdbdb;
+  margin: 1rem;
+  text-transform: capitalize;
+}
+th{
+  border: 2px solid #888;
+  padding: 0.5rem;
+}
+.table-data{
+  border: 2px solid white;
+  margin: 0.5rem;
+  padding: 0.25rem;
+}
+.correct{
+  border: 1px groove rgba(50, 205, 50, 0.8);
+  color: #EEE8AA;
+  padding: 0.5rem;
+  text-decoration: underline rgba(0, 255, 127, 0.8);
+}
+.types{
+  display: inline-block;
+  width: 66px;
+  margin-bottom: 4px;
+  background: #dbdbdb;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,.2);
+  color: #fff;
+  font-size: .75rem;
+  font-weight: normal;
+  line-height: 1.5rem;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,.7);
+  text-transform: uppercase;
+  transition: opacity .4s;
+}
+.type-normal{
+  background-color: #aa9;
+}
+.type-fire{
+  background-color: #f42;
+}
+.type-water{
+  background-color: #39f;
+}
+.type-electric{
+  background-color: #fc3;
+}
+.type-grass{
+  background-color: #7c5;
+}
+.type-ice{
+  background-color: #6cf;
+}
+.type-fighting{
+  background-color: #b54;
+}
+.type-poison{
+  background-color: #a59;
+}
+.type-ground{
+  background-color: #db5;
+}
+.type-flying{
+  background-color: #89f;
+}
+.type-psychic{
+  background-color: #f59;
+}
+.type-bug{
+  background-color: #ab2;
+}
+.type-rock{
+  background-color: #ba6;
+}
+.type-ghost{
+  background-color: #66b;
+}
+.type-dragon{
+  background-color: #76e;
+}
+.type-dark{
+  background-color: #754;
+}
+.type-steel{
+  background-color: #aab;
+}
+.type-fairy{
+  background-color: #e9e;
+}
+.img-div img{
+  width: 12rem;
+  padding: 0;
+  margin: 0;
+}
+.correct-img img{
+  border: 2px solid rgba(50, 205, 50, 0.8);
 }
